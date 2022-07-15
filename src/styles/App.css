@@ -143,9 +143,12 @@ a.Topic {
 }
 
 .Items {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-content: center; */
+  display: grid;
+  grid-template-columns: auto auto auto auto;
 }
 
 .Item {
@@ -498,8 +501,14 @@ ul.Outliner,
 }
 
 .AttributesList {
+  display: flex;
   flex-direction: column;
   text-align: left;
+}
+
+.CorporaList {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
 }
 
 button {

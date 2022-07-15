@@ -25,12 +25,12 @@ class Corpora extends Component {
     let count = this.props.items.length;
     let total = this.props.from;
     let listIds = this.props.ids.map((corpus) =>
-      <div key={corpus}>{corpus} <ItemCreator corpus={corpus} conf={this.props.conf} /></div>
+      <div key={corpus}> {corpus} <ItemCreator corpus={corpus} conf={this.props.conf} /></div>
     );
     return (
       <div className="col-md-8 p-0 p-md-4">
         <div className="Subject">
-          <h2 className="h4 font-weight-bold text-center d-none d-sm-block">
+          <h2 className="h4 font-weight-bold text-center CorporaList">
             {listIds}
             <span className="badge badge-pill badge-light ml-4">{count} / {total}</span>
           </h2>
