@@ -1,11 +1,22 @@
-user: vitraux
+user: chants
 services:
-  - http://localhost
+- https://db.r-mes.ovh/carnet/_design/argos/_rewrite
+reservedViewpoints:
+- U01 - Indications du Père Jacques Breton
+customization:
+  use_case: rmes
+
+# user: chants
+# services:
+# - http://localhost:5984/carnets/_design/argos/_rewrite
+# custom:
+# - use_case: rmes
+
 #disqus: #paste your Disqus 'shortname'
 #map:
 #  key: #paste your GoogleMaps API key for geocoding and dynamic maps
 #  geocodingService: https://maps.googleapis.com/maps/api/geocode/json
 
-portfolio:
-  vitraux:
-    visitMap: true
+# portfolio:
+#   vitraux:
+#     visitMap: true

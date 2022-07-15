@@ -2,13 +2,14 @@ import React from 'react';
 
 let Resource = React.memo((props) => {
 
-  const EXTENSION = /\.[\w{3,4}]$/;
+  const EXTENSION = /\.[\w{3,4}]+(?=[?]|$)/;
   const URI_SEGMENT = /[^/]+/g;
 
   let getMediaType = (uri) => {
     try {
       if (/optimized/.test(uri)) return 'image';
-      switch (uri.match(EXTENSION)) {
+      console.log(uri.match(EXTENSION)[0]);
+      switch (uri.match(EXTENSION)[0]) {
         case '.gif':
         case '.jpg':
         case '.jpeg':
@@ -25,6 +26,7 @@ let Resource = React.memo((props) => {
 
   let uri = props.href && props.href[0];
   if (!uri) return null;
+  console.log(uri);
   let fileName = uri.match(URI_SEGMENT).slice(-1)[0];
   switch (getMediaType(uri)) {
     case 'image': return (
