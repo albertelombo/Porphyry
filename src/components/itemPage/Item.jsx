@@ -56,16 +56,6 @@ class Item extends Component {
   render() {
     let name = getString(this.state.item.name);
     let attributes = this._getAttributes();
-    let lyrics = undefined;
-    let lien = undefined;
-    if (this.state.rmes) {
-      lyrics = attributes
-        .filter(attr => (attr.props.name === 'lyrics'));
-      lyrics = lyrics[0];
-      lien = attributes
-        .filter(attr => (attr.props.name === 'lien'));
-      lien = lien[0];
-    }
     const { creator, created } = this.state.item;
     let viewpoints = this._getViewpoints();
     let sameNameBlock = this._getSameNameBlock();
@@ -106,7 +96,7 @@ class Item extends Component {
                     <h3 className="h4"><Trans>Attributs du document</Trans></h3>
                     <hr />
                     <div>
-                      {attributes.map(attr => ((attr.key !== 'lyrics' && attr.key !== 'lien') ? attr : null))}
+                      {attributes}
                     </div>
                     <div className="d-none d-sm-block">{this._getAttributeCreationForm()}</div>
                   </div>
@@ -124,9 +114,7 @@ class Item extends Component {
               <div className="Subject">
                 <h2 id="desktop_subject" className="ItemTitle h4 font-weight-bold text-center">{name}</h2>
                 <div className="d-sm-none">{mobileViewpoints}</div>
-                <Resource href={this.state.item.resource} />
-                {this.state.rmes && lyrics}
-                {this.state.rmes && lien}
+                <Resource resource={this.state.item.resource} />
                 <div className="d-block d-sm-none">
                   <Copyright creator={creator} created={created} />
                 </div>

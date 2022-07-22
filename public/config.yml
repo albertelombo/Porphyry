@@ -1,16 +1,16 @@
-user: chants
-services:
-- https://db.r-mes.ovh/carnet/_design/argos/_rewrite
-reservedViewpoints:
-- U01 - Indications du Père Jacques Breton
-customization:
-  use_case: rmes
-
 # user: chants
 # services:
-# - http://localhost:5984/carnets/_design/argos/_rewrite
-# custom:
-# - use_case: rmes
+# - https://db.r-mes.ovh/carnet/_design/argos/_rewrite
+# reservedViewpoints:
+# - U01 - Indications du Père Jacques Breton
+# customization:
+#   use_case: rmes
+
+user: chants
+services:
+- http://localhost:5984/modifs/_design/argos/_rewrite
+customization:
+  use_case: rmes
 
 #disqus: #paste your Disqus 'shortname'
 #map:
