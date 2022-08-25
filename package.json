@@ -33,7 +33,7 @@
   },
   "scripts": {
     "extract": "lingui extract",
-    "start": "lingui compile && cross-env EXTEND_ESLINT=true react-scripts --openssl-legacy-provider start",
+    "start": "lingui compile && cross-env EXTEND_ESLINT=true react-scripts start",
     "clean": "rimraf src/locales/*/messages.js && rimraf build src/locales/_build",
     "build": "lingui compile && react-scripts build",
     "preprod": "serve -s build -p 3000"
