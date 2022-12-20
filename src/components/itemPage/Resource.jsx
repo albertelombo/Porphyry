@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 let Resource = React.memo((props) => {
 
   const EXTENSION = /\.[\w{3,4}]+(?=[?]|$)/;
   const URI_SEGMENT = /[^/]+/g;
+
+  const [rights, setRights] = useState(false);
+  const [user, setUser] = useState({user: ''});
 
   let getResourceType = (resource) => {
     if (typeof resource === 'string') {
@@ -26,6 +29,38 @@ let Resource = React.memo((props) => {
       }
     } else {
       return 'object';
+    }
+  };
+
+  function requestSession(options) {
+    return props.conf.then(x => {
+      options = options || {};
+      options.credentials = 'include';
+      return fetch(x.services[0] + '/_session', options);
+    });
+  }
+
+  function fetchSession() {
+    requestSession()
+      .then(x => x.json())
+      .then(x => setUser({user: x.name || x.userCtx.name}))
+      .catch(() => setUser({user: ''}));
+  }
+
+  let isAuthenticated = () => {
+    fetchSession();
+    console.log('The user is: ' + user.user);
+    if (user.user == '' || user.user == null) {
+      return false;
+    }
+    return true;
+  };
+
+  let handleClick = () => {
+    if (isAuthenticated()) {
+      setRights(true);
+    } else {
+      alert('Il faut être authentifié pour avoir les paroles');
     }
   };
 
@@ -55,7 +90,9 @@ let Resource = React.memo((props) => {
           <iframe width="420" height="315"
             src={videoUri} allowFullScreen>
           </iframe>
-          <pre>{resource.lyrics}</pre>
+          <br />
+          {rights ? <pre>{resource.lyrics}</pre> : <button onClick={handleClick} className="btn btn-primary">Charger les paroles </button> }
+          <br />
           <a href={resource.pic} target="_blank" className="cursor-zoom"
             rel="noopener noreferrer">
             <img src={resource.pic} alt="fileName" />

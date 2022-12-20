@@ -53,6 +53,7 @@ class Item extends Component {
       window.location.reload(false);
     }
   }
+
   render() {
     let name = getString(this.state.item.name);
     let attributes = this._getAttributes();
@@ -114,7 +115,7 @@ class Item extends Component {
               <div className="Subject">
                 <h2 id="desktop_subject" className="ItemTitle h4 font-weight-bold text-center">{name}</h2>
                 <div className="d-sm-none">{mobileViewpoints}</div>
-                <Resource resource={this.state.item.resource} />
+                <Resource resource={this.state.item.resource} conf= {conf} />
                 <div className="d-block d-sm-none">
                   <Copyright creator={creator} created={created} />
                 </div>
@@ -436,6 +437,7 @@ class Item extends Component {
         .catch(error => console.error(error));
     }
   };
+
 }
 
 const Comments = React.memo((props) => {

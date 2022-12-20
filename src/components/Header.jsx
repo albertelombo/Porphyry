@@ -9,7 +9,7 @@ class Header extends Component {
     super(props);
     this.state = {user: ''};
     props.conf.then(x => this.setState({user: x.user}));
-  }
+  };
 
   render() {
     return (

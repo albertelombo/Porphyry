@@ -1,6 +1,10 @@
 user: chants
 services:
-- https://db.r-mes.ovh/modif/_design/argos/_rewrite
+  # - http://localhost:5984/ordinaires/_design/argos/_rewrite
+  - https://db.r-mes.ovh/modif2/_design/argos/_rewrite
+  # - https://argos.utt.fr
+  # - https://steatite.utt.fr
+
 reservedViewpoints:
 - U01 - Indications du Père Jacques Breton
 customization:
