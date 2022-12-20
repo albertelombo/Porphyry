@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
 import by from 'compare-func';
@@ -6,9 +6,9 @@ import memoize from 'memoize-one';
 import ItemCreator from './ItemCreator.jsx';
 import GeographicMap from './GeographicMap.jsx';
 import { Items } from '../../model.js';
+import conf from '../../config.js';
 
 class Corpora extends Component {
-
   state = {
     criteria: 'name'
   };
@@ -25,12 +25,12 @@ class Corpora extends Component {
     let count = this.props.items.length;
     let total = this.props.from;
     let listIds = this.props.ids.map((corpus) =>
-      <div key={corpus}>{corpus} <ItemCreator corpus={corpus} conf={this.props.conf} /></div>
+      <div key={corpus}> {corpus} <ItemCreator corpus={corpus} conf={this.props.conf} /></div>
     );
     return (
       <div className="col-md-8 p-0 p-md-4">
         <div className="Subject">
-          <h2 className="h4 font-weight-bold text-center d-none d-sm-block">
+          <h2 className="h4 font-weight-bold text-center CorporaList">
             {listIds}
             <span className="badge badge-pill badge-light ml-4">{count} / {total}</span>
           </h2>
@@ -68,6 +68,11 @@ class Corpora extends Component {
 }
 
 function Item(props) {
+  let [rmes, setRmes] = useState(false);
+  conf.then(settings => {
+    if (settings.customization && settings.customization['use_case'])
+      setRmes((settings.customization['use_case'] === 'rmes') || false);
+  });
   let uri = `/item/${props.item.corpus}/${props.item.id}`;
   let name = [props.item.name].join(', '); //Name can be an array
   let thumbnail = props.item.thumbnail && <img src={props.item.thumbnail} alt={name}/>;
@@ -79,7 +84,7 @@ function Item(props) {
         pathname: uri,
         state: { selectedUri: window.location.search }
       }}>
-        {thumbnail}
+        {(!rmes) && thumbnail}
         <div>{name}</div>
       </Link>
       {criteria}

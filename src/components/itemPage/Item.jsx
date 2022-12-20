@@ -37,8 +37,15 @@ class Item extends Component {
     this.state = {
       attributeInputValue: '',
       item: { topic: [] },
-      corpus: []
+      corpus: [],
+      rmes: false
     };
+    conf.then(settings => {
+      if (settings.customization && settings.customization['use_case'])
+        this.setState({
+          rmes: (settings.customization['use_case'] === 'rmes') || false,
+        });
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -46,15 +53,10 @@ class Item extends Component {
       window.location.reload(false);
     }
   }
+
   render() {
     let name = getString(this.state.item.name);
     let attributes = this._getAttributes();
-    let lyrics = attributes
-      .filter(attr => (attr.props.name === 'lyrics'));
-    lyrics = lyrics[0];
-    let lien = attributes
-      .filter(attr => (attr.props.name === 'lien'));
-    lien = lien[0];
     const { creator, created } = this.state.item;
     let viewpoints = this._getViewpoints();
     let sameNameBlock = this._getSameNameBlock();
@@ -95,7 +97,7 @@ class Item extends Component {
                     <h3 className="h4"><Trans>Attributs du document</Trans></h3>
                     <hr />
                     <div>
-                      {attributes.map(attr => ((attr.key !== 'lyrics' && attr.key !== 'lien') ? attr : null))}
+                      {attributes}
                     </div>
                     <div className="d-none d-sm-block">{this._getAttributeCreationForm()}</div>
                   </div>
@@ -113,9 +115,7 @@ class Item extends Component {
               <div className="Subject">
                 <h2 id="desktop_subject" className="ItemTitle h4 font-weight-bold text-center">{name}</h2>
                 <div className="d-sm-none">{mobileViewpoints}</div>
-                <Resource href={this.state.item.resource} />
-                {lyrics}
-                {lien}
+                <Resource resource={this.state.item.resource} conf= {conf} />
                 <div className="d-block d-sm-none">
                   <Copyright creator={creator} created={created} />
                 </div>
@@ -437,6 +437,7 @@ class Item extends Component {
         .catch(error => console.error(error));
     }
   };
+
 }
 
 const Comments = React.memo((props) => {

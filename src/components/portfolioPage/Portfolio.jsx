@@ -166,7 +166,11 @@ class Portfolio extends Component {
     return new Items(
       [item]
     ).getAttributes()
-      .map(([key, value]) => key.concat(' : ', value.replace('\'', '’')));
+      .map(([key, value]) => {
+        if (value) {
+          key.concat(' : ', value.replace('\'', '’'));
+        }
+      });
   }
 
   /**
