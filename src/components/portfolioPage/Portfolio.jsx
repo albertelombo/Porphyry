@@ -170,7 +170,6 @@ class Portfolio extends Component {
     let attributes = attrsbrut.map((tab) => {
       let key = tab[0];
       let value = tab[1];
-      let type = typeof tab[1];
       if (value) {
         return key.concat(' : ', value.replace('\'', '’'));
       }
