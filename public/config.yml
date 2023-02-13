@@ -1,26 +1,13 @@
 user: chants
 services:
-  # - http://localhost:5984/ordinaires/_design/argos/_rewrite
-  - https://db.r-mes.ovh/modif2/_design/argos/_rewrite
-  # - https://argos.utt.fr
-  # - https://steatite.utt.fr
+  - https://db.r-mes.ovh/ordinaires_2/_design/argos/_rewrite
 
 reservedViewpoints:
 - U01 - Indications du Père Jacques Breton
 customization:
   use_case: rmes
 portfolio:
-  chants:
+  chant:
     visitMap: false 
 
-# user: chants
-# services:
-# - http://localhost:5984/modifs/_design/argos/_rewrite
-# customization:
-#   use_case: rmes
-
-#disqus: #paste your Disqus 'shortname'
-#map:
-#  key: #paste your GoogleMaps API key for geocoding and dynamic maps
-#  geocodingService: https://maps.googleapis.com/maps/api/geocode/json
 

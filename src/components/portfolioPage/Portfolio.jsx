@@ -163,14 +163,19 @@ class Portfolio extends Component {
   }
 
   _getItemAttributes(item) {
-    return new Items(
+    let attrsbrut = new Items(
       [item]
-    ).getAttributes()
-      .map(([key, value]) => {
-        if (value) {
-          key.concat(' : ', value.replace('\'', '’'));
-        }
-      });
+    ).getAttributes();
+
+    let attributes = attrsbrut.map((tab) => {
+      let key = tab[0];
+      let value = tab[1];
+      if (value) {
+        return key.concat(' : ', value.replace('\'', '’'));
+      }
+    });
+
+    return attributes;
   }
 
   /**
@@ -194,7 +199,8 @@ class Portfolio extends Component {
 
   _isSelected(item) {
     let filter = this.query.toFilter();
-    return filter(this._getRecursiveItemTopics(item).concat(this._getItemAttributes(item)));
+    let rslt = filter(this._getRecursiveItemTopics(item).concat(this._getItemAttributes(item)));
+    return rslt ;
   }
 
   _updateSelectedItems() {
