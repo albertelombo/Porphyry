@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 let Resource = React.memo((props) => {
 
   const EXTENSION = /\.[\w{3,4}]+(?=[?]|$)/;
 
   const [rights, setRights] = useState(false);
+  const [update, setUpdate] = useState(false);
   const [user, setUser] = useState({user: ''});
 
   let getResourceType = (resource) => {
@@ -60,6 +61,14 @@ let Resource = React.memo((props) => {
       .catch((e) => console.log(e));
   };
 
+  useEffect(()=> {
+    if (rights) {
+      console.log('here we go');
+      setUpdate(true);
+
+    }
+  }, [rights]);
+
   let resource = props.resource && props.resource[0];
   if (!resource) return null;
   switch (getResourceType(resource)) {
@@ -83,7 +92,7 @@ let Resource = React.memo((props) => {
             src={videoUri} allowFullScreen>
           </iframe>
           <br />
-          {rights ? <pre>{resource.lyrics}</pre> : <button onClick={handleClick} className="btn btn-primary">Charger les paroles </button> }
+          {update ? <pre>{resource.lyrics}</pre> : <button onClick={handleClick} className="btn btn-primary">Charger les paroles </button> }
           <br />
           <a href={resource.pic} target="_blank" className="cursor-zoom"
             rel="noopener noreferrer">

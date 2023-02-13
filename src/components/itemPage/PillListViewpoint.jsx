@@ -32,12 +32,12 @@ class TopicPillList extends React.Component {
     let hypertopic = new Hypertopic((await conf).services);
     return hypertopic.getView(`/viewpoint/${this.props.id}`).then((data) => {
       let viewpoint = data[this.props.id];
-      let name = viewpoint.name;
-      let topics = viewpoint;
+      let name = viewpoint ? viewpoint.name : '';
+      let topics = viewpoint ? viewpoint : {user: '', name: '', upper: ''};
       delete topics.user;
       delete topics.name;
       delete topics.upper;
-      this.setState({ name, topics });
+      this.setState({name, topics});
     });
   }
 
